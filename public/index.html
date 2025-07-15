@@ -90,9 +90,15 @@
           },
           body: JSON.stringify({ scheduleInput })
         });
-        
-        const data = await response.json();
-        
+
+        let data;
+        try {
+          data = await response.json();
+        } catch (jsonError) {
+          // 如果响应不是JSON，直接读取为文本
+          data = { ics: await response.text() };
+        }
+
         if (data.ics) {
           resultDiv.innerHTML = `<pre>${data.ics}</pre>`;
         } else {
@@ -100,7 +106,7 @@
         }
       } catch (error) {
         console.error('Error:', error);
-        resultDiv.innerHTML = `<p style="color: red;">转换失败: ${error.message}</p>`;
+        resultDiv.innerHTML = `<p style=\"color: red;\">转换失败: ${error.message}</p>`;
       }
     }
   </script>

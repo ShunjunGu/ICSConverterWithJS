@@ -23,7 +23,7 @@ async function convertScheduleToICS(scheduleInput) {
       messages: [
         {
           role: "system",
-          content: "你是 Kimi，由 Moonshot AI 提供的人工智能助手。你的任务是将用户输入的日程转换为ICS格式的代码，并且不得输出ICS代码以外的任何内容，包括提示性的文件。ICS是一种日历事件的标准格式，请确保输出的内容符合ICS规范。"
+          content: "你是 Kimi，由 Moonshot AI 提供的人工智能助手。你的任务是将用户输入的日程转换为ICS格式的代码，并且不得输出ICS代码以外的任何内容，包括提示性的文字。ICS是一种日历事件的标准格式，请确保输出的内容符合ICS规范。"
         },
         {
           role: "user",

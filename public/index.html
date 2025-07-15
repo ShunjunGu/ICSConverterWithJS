@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日程转ICS工具</title>
+  <style>
+    /* 简单的样式 */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    h1 {
+      color: #333;
+      margin-bottom: 30px;
+    }
+    
+    textarea {
+      width: 100%;
+      height: 150px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      resize: vertical;
+    }
+    
+    button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background-color: #0056b3;
+    }
+    
+    pre {
+      background-color: #f8f8f8;
+      padding: 15px;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin-top: 20px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>日程转ICS工具</h1>
+    <textarea id="scheduleInput" placeholder="请输入日程描述..."></textarea>
+    <button onclick="convertToICS()">转换为ICS</button>
+    <div id="result"></div>
+  </div>
+  
+  <script>
+    async function convertToICS() {
+      const scheduleInput = document.getElementById('scheduleInput').value;
+      const resultDiv = document.getElementById('result');
+      
+      if (!scheduleInput.trim()) {
+        resultDiv.innerHTML = '<p style="color: red;">请输入日程内容</p>';
+        return;
+      }
+      
+      try {
+        const response = await fetch('/convert-to-ics', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ scheduleInput })
+        });
+        
+        const data = await response.json();
+        
+        if (data.ics) {
+          resultDiv.innerHTML = `<pre>${data.ics}</pre>`;
+        } else {
+          throw new Error('转换失败，未获得ICS数据');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        resultDiv.innerHTML = `<p style="color: red;">转换失败: ${error.message}</p>`;
+      }
+    }
+  </script>
+</body>
+</html>

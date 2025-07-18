@@ -1,7 +1,8 @@
 // ICS转换路由
-const express = require('express');
+import express from 'express';
+import { convertScheduleToICS, convertImageToICS } from '../utils/kimiApiHandler.js';
+
 const router = express.Router();
-const kimiApiHandler = require('../utils/kimiApiHandler');
 
 // 文本转换接口
 router.post('/', async (req, res) => {
@@ -35,4 +36,4 @@ router.post('/image', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

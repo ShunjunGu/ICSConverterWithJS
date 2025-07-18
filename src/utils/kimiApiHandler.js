@@ -1,11 +1,16 @@
 // Kimi API处理工具
-const OpenAI = require('openai');
-const base64 = require('base64-js');
+import OpenAI from 'openai';
+import base64 from 'base64-js';
 
 // 创建OpenAI客户端实例
+const apiKey = process.env.MOONSHOT_API_KEY;
+if (!apiKey) {
+  console.error('警告: MOONSHOT_API_KEY 环境变量未设置');
+}
+
 const client = new OpenAI({
-  apiKey: process.env.MOONSHOT_API_KEY,
-  baseURL: "https://api.moonshot.cn/v1",
+  apiKey: apiKey || 'dummy-key',
+  baseURL: 'https://api.moonshot.cn/v1'
 });
 
 /**
@@ -79,7 +84,4 @@ async function convertImageToICS(imageData) {
   }
 }
 
-module.exports = {
-  convertScheduleToICS,
-  convertImageToICS
-};
+export { convertScheduleToICS, convertImageToICS };

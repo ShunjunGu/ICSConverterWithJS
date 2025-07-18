@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "将文本格式的日程信息转换为标准ICS日历文件格式的工具",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "mcp": "node src/mcp-server.js"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.15.1",
     "base64-js": "^1.5.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.0",
